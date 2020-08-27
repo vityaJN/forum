@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8"/>
+    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+    <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <a class="navbar-brand text-white" href="/">forum</a>
+        <div class="collapse navbar-collapse" id="Menu">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/create_topics_form">Create topics</a>
+                </li>
+            </ul>
+        </div>
+        <a class="navbar-brand text-white" href="/filter_messages_and_users">filter messages by user</a>
+        <form data-th-action="@{/logout}" method="POST">
+            <input type="submit" value="Logout"/>
+        </form>
+    </nav>
+</header>
+
+<body>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Topic Name</th>
+        <th scope="col">Creation Date</th>
+        <th scope="col">Last Message by</th>
+        <th scope="col">Open topic</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr data-th-each="topic: ${topic}">
+        <th scope="row" data-th-text="${topic.name}"></th>
+        <th scope="row" th:text="${topic.creationDate}"></th>
+        <th scope="row" th:text="${topic.lastMessageBy}"></th>
+        <th><a th:href="@{/topics/{topicsId}(topicsId=${topic.id})}" th:text="opentopic"></a></th>
+    </tr>
+</body>
+</html>

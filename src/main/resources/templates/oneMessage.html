@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+    <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
+    <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<a data-th-href="@{/}">Home Page!</a>
+<br>
+<table>
+    <tr>
+
+<td data-th-text="${messageById.name}"></td>
+<td data-th-text="${messageById.date}"></td>
+<td data-th-text="${messageById.text}"></td>
+    </tr>
+</table>
+</body>
+</html>

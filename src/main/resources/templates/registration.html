@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--  jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[name="birthday"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'yyyy/mm/dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+        })
+    </script>
+
+</head>
+<body>
+<p class="message"><a href="/">Back to home</a></p>
+
+
+<form th:action="@{/perform_registration}" th:object="${registration_data}" method="Post">
+    <table>
+        <tr>
+            <td>firstName:</td>
+            <td><label>
+                <input type="text" th:field="*{firstName}"/>
+            <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Age Error</td>
+        </tr>
+        <tr>
+            <td>username:</td>
+            <td><label>
+                <input type="text" th:field="*{username}"/>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</td>
+        </tr>
+        <tr>
+            <td>password:</td>
+            <td><label>
+                <input type="text" th:field="*{password}"/>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</td>
+        </tr>
+        <tr>
+            <td>confirm password:</td>
+            <td><label>
+                <input type="text" th:field="*{passwordTwo}"/>
+            <td th:if="${#fields.hasErrors('passwordTwo')}" th:errors="*{passwordTwo}">passwordTwo Error</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><label>
+                <input type="text" th:field="*{email}"/>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">password Error</td>
+        </tr>
+        <tr>
+            <label> Birhtday</label>
+            <td>
+                <input class="form-control" id="date" placeholder="yyyy/mm/dd" type="text" th:field="*{birthday}"/>
+            </td>
+            <td th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">password Error</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<a data-th-href="@{/}">Home Page!</a>
+<br>
+
+
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Date</td>
+            <td>Message</td>
+        </tr>
+        </thead>
+        <tr data-th-each="message:           ${messages}">
+            <td data-th-text="${message.name}"></td>
+            <td data-th-text="${message.date}"></td>
+            <td data-th-text="${message.text}"></td>
+
+            <a th:href="@{/messages/{messageID}(messageID=${message.messageID})}" th:text="details"></a>
+            <td>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>
