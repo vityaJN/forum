@@ -1,7 +1,7 @@
 package forum.messenger.Services;
 
 import forum.messenger.container.Message;
-import forum.messenger.model.User;
+import forum.messenger.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

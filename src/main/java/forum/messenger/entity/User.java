@@ -1,4 +1,4 @@
-package forum.messenger.model;
+package forum.messenger.entity;
 
 import forum.messenger.container.Message;
 import forum.messenger.entity.Authority;

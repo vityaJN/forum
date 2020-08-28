@@ -1,5 +1,5 @@
 package forum.messenger.container;
-import forum.messenger.model.User;
+import forum.messenger.entity.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

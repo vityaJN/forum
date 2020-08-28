@@ -1,6 +1,5 @@
 package forum.messenger.entity;
 
-import forum.messenger.model.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;

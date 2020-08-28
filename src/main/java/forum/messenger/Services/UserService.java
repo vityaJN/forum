@@ -1,7 +1,7 @@
 package forum.messenger.Services;
 
 import forum.messenger.entity.Authority;
-import forum.messenger.model.User;
+import forum.messenger.entity.User;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

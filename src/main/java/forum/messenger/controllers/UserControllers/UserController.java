@@ -1,6 +1,6 @@
 package forum.messenger.controllers.UserControllers;
 
-import forum.messenger.model.User;
+import forum.messenger.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
