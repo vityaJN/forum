@@ -66,6 +66,7 @@ public class TopicService {
         return topics;
     }
 
+    //todo implement QUERYDSL
     @Transactional
     public Topic getSingleTopic(long topicId, String orderby, int limit, String direction) {
 
@@ -89,9 +90,14 @@ public class TopicService {
                 orderby = "date";
         }
 
-        String query = "select m from Message m order by m." + orderby + " " + direction;
-        limitedMessages = em.createQuery(query).setMaxResults(10).getResultList();
+        //      String query = "select m from Message m order by " + orderby + " " + direction + " where m.topic.id = :tId";
 
+        limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId", topicId).setMaxResults(10).getResultList();
+
+
+        // limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId",topicId).setMaxResults(10).getResultList();
+
+//[select m from forum.messenger.container.Message m order by name desc where m.topic.id = :tId]
         Topic topic = (Topic) em.createQuery("SELECT t from  Topic t where t.id = :tid").setParameter("tid", topicId).getSingleResult();
         topic.setMessages(limitedMessages);
         return topic;

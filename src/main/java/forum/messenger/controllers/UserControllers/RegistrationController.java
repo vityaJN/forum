@@ -1,4 +1,4 @@
-package forum.messenger.controllers;
+package forum.messenger.controllers.UserControllers;
 
 import forum.messenger.DTO.RegistrationDTO;
 import forum.messenger.Services.RegistrationService;
@@ -41,6 +41,6 @@ public class RegistrationController {
         }
 
         registrationService.createUser(reg.getUsername(), reg.getPassword(), reg.getFirstName(), reg.getEmail(), reg.getBirthday());
-        return "/";
+        return "redirect:/";
     }
 }
