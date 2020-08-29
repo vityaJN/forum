@@ -20,7 +20,7 @@ public class RegistrationService {
     }
 
     public void createUser(String username, String password, String firstName, String email, LocalDate birthday) {
-        User user = new User(firstName, username, password, email, birthday);
+        User user = new User(username, password, firstName, email, birthday);
         UserDetails userDetails = (UserDetails) user;
         userDetailsManager.createUser(userDetails);
     }

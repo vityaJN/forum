@@ -26,7 +26,7 @@ public class UserService implements UserDetailsManager {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.debug("loadUser Called");
         try {
-            return (User) em.createQuery("select u FROM  User u  JOIN FETCH u.authorities where u.name = :usrname ")
+            return (User) em.createQuery("select u from User u JOIN FETCH u.authorities where u.username = : usrname")
                     .setParameter("usrname", username).getSingleResult();
         } catch (Exception e) {
             String isUserNull = username == null ? " the user is null" : " the user is not null";

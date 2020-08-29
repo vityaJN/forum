@@ -22,14 +22,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    String name;
-
     @Column(name = "username")
     String username;
 
     @Column(name = "password")
     String password;
+
+    @Column(name = "name")
+    String name;
 
     @Column(name = "email")
     String email;
@@ -46,10 +46,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String nickname, String password, String email, LocalDate birthday) {
-        this.name = name;
-        this.username = nickname;
+    public User(String username, String password, String firstName, String email, LocalDate birthday) {
+        this.username = username;
         this.password = password;
+        this.name = firstName;
         this.email = email;
         this.birthday = birthday;
         authorities = new HashSet<>();
@@ -89,16 +89,6 @@ public class User implements UserDetails {
         this.birthday = birthday;
     }
 
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
-
-    public User(String name, String password, String nickname) {
-        this.name = name;
-        this.username = nickname;
-        this.password = password;
-    }
 
     public String getName() {
         return name;
@@ -114,7 +104,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
