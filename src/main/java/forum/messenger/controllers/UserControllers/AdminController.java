@@ -1,4 +1,5 @@
 package forum.messenger.controllers.UserControllers;
+
 import forum.messenger.Services.AdminService;
 import forum.messenger.Services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AdminController {
     @PostMapping("/admin/messages/deleteMessage/{messageId}")
     public String deleteMessage(@PathVariable("messageId") long messageId) {
         msgService.deleteMessage(messageId);
-        return "redirect:/messages";
+        return "redirect:/topics/" + msgService.fromWhichTopicTheMessage(messageId);
     }
 
     @GetMapping("/admin/messages/deletedMessages/")
@@ -50,6 +51,6 @@ public class AdminController {
     @PostMapping("/admin/messages/recoveryMessage/{messageId}")
     public String recoveryMessage(@PathVariable("messageId") long messageId) {
         msgService.recoveryMessage(messageId);
-        return "redirect:/messages";
+        return "redirect:/topics/" + msgService.fromWhichTopicTheMessage(messageId);
     }
 }

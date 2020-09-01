@@ -41,7 +41,7 @@ public class TopicController {
     @PostMapping("/create_topics")
     public String createTopics(@ModelAttribute("topic") Topic topic) {
         topicService.createTopic(topic);
-        return "redirect:/messages";
+        return "redirect:/";
     }
 
 

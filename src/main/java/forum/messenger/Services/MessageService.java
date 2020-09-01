@@ -40,6 +40,11 @@ public class MessageService {
     }
 
     @Transactional
+    public long fromWhichTopicTheMessage(long messageId){
+       return em.find(Message.class,messageId).getTopic().getId();
+    }
+
+    @Transactional
     public void createMessage(MessageDTO messagedto) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Message message = new Message(loggedInUser, loggedInUser.getName(), LocalDateTime.now(), messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
