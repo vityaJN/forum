@@ -1,6 +1,8 @@
 package forum.messenger.entity;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Topic {
     @Id
     @Getter @Setter
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Getter @Setter
     @Column(name = "name")

@@ -18,7 +18,7 @@ public class MessageService {
     private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     private final TopicService topicService;
 

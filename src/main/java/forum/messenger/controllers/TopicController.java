@@ -17,7 +17,6 @@ public class TopicController {
         this.topicService = topicService;
     }
 
-
     @GetMapping("/")
     public String getTopics(Model model) {
         model.addAttribute("topic", topicService.getTopics(10));

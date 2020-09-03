@@ -1,14 +1,10 @@
 package forum.messenger.DTO;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class FilterDTO {
-
     private long topicId;
-
-    public long getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(long topicId) {
-        this.topicId = topicId;
-    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class AdminService {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     //todo add more orderby options
     @Transactional

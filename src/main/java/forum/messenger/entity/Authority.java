@@ -1,7 +1,9 @@
 package forum.messenger.entity;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,11 +16,11 @@ public class Authority implements GrantedAuthority {
     private Long id;
 
     @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
-    Set<User> user;
+    private Set<User> user;
 
     @Getter @Setter
     @Column(name = "role")
-    String role;
+    private String role;
 
     public Authority() {
         this.user = new HashSet<>();

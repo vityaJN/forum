@@ -1,9 +1,11 @@
 package forum.messenger.entity;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -22,19 +24,19 @@ public class User implements UserDetails {
 
     @Getter @Setter
     @Column(name = "username")
-    String username;
+    private String username;
 
     @Getter @Setter
     @Column(name = "password")
-    String password;
+    private String password;
 
     @Getter @Setter
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Getter @Setter
     @Column(name = "email")
-    String email;
+    private String email;
 
     @Getter @Setter
     @Column(name = "birthday")

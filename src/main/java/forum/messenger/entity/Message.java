@@ -1,6 +1,8 @@
 package forum.messenger.entity;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -19,11 +21,11 @@ public class Message {
 
     @Getter @Setter
     @ManyToOne
-    User user;
+    private User user;
 
     @Getter @Setter
     @Column(name = "isDeleted")
-    Boolean isDeleted;
+    private Boolean isDeleted;
 
     @Getter @Setter
     @Column(name = "name")

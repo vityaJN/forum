@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 public class UserService implements UserDetailsManager {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 

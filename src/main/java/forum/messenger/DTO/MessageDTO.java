@@ -1,8 +1,13 @@
 package forum.messenger.DTO;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Data
 public class MessageDTO {
 
     private long topicId;
@@ -12,19 +17,6 @@ public class MessageDTO {
     private String text;
 
     public MessageDTO(long topicId) {
-        this.topicId = topicId;
-    }
-
-    public String getText() {
-        return text;
-    }
-    public void setText(String text) {
-        this.text = text;
-    }
-    public long getTopicId() {
-        return topicId;
-    }
-    public void setTopicId(long topicId) {
         this.topicId = topicId;
     }
 }

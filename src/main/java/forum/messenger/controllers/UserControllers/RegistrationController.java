@@ -18,12 +18,19 @@ public class RegistrationController {
     @Autowired
     RegistrationService registrationService;
 
+    /**
+     *get user registration view
+     */
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("registration_data", new RegistrationDTO());
         return "registration";
     }
 
+    /**
+     * user registration
+     *
+     */
     @PostMapping("/perform_registration")
     public String performRegistration(@Valid @ModelAttribute("registration_data") RegistrationDTO reg,
                                       BindingResult bindingResult) {

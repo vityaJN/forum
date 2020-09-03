@@ -1,24 +1,14 @@
 package forum.messenger.DTO;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
 public class ModifyMessageDTO {
 
-    String text;
+    private String text;
 
-    long messageId;
+    private long messageId;
 
-    public long getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(long messageId) {
-        this.messageId = messageId;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }
