@@ -1,9 +1,9 @@
 package forum.messenger.entity;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -20,21 +20,27 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Getter @Setter
     @Column(name = "username")
     String username;
 
+    @Getter @Setter
     @Column(name = "password")
     String password;
 
+    @Getter @Setter
     @Column(name = "name")
     String name;
 
+    @Getter @Setter
     @Column(name = "email")
     String email;
 
+    @Getter @Setter
     @Column(name = "birthday")
     public LocalDate birthday;
 
+    @Getter @Setter
     @OneToMany
     private List<Message> messageList;
 
@@ -70,45 +76,6 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -127,17 +94,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
