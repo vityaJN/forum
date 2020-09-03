@@ -1,6 +1,6 @@
 package forum.messenger.Services;
 import forum.messenger.DTO.MessageDTO;
-import forum.messenger.container.Message;
+import forum.messenger.entity.Message;
 import forum.messenger.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

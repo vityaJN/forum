@@ -1,7 +1,5 @@
 package forum.messenger.entity;
 
-import forum.messenger.container.Message;
-import forum.messenger.entity.Authority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -142,6 +140,4 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 }

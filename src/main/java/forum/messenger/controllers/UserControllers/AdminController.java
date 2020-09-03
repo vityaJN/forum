@@ -43,11 +43,6 @@ public class AdminController {
         return "deleted_messages";
     }
 
-    @GetMapping("/admin/getUsers")
-    public String getUsers(Model model) {
-        return "deleted_messages";
-    }
-
     @PostMapping("/admin/messages/recoveryMessage/{messageId}")
     public String recoveryMessage(@PathVariable("messageId") long messageId) {
         msgService.recoveryMessage(messageId);

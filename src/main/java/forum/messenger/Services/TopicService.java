@@ -1,7 +1,7 @@
 package forum.messenger.Services;
 
-import forum.messenger.container.Message;
-import forum.messenger.container.Topic;
+import forum.messenger.entity.Message;
+import forum.messenger.entity.Topic;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +29,7 @@ public class TopicService {
         em.persist(topic);
     }
 
+    //todo after deleting the topic delete also the messages
     @Transactional
     public void deleteTopic(long topicId) {
         Topic topic = em.find(Topic.class, topicId);
@@ -97,7 +98,7 @@ public class TopicService {
 
         // limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId",topicId).setMaxResults(10).getResultList();
 
-//[select m from forum.messenger.container.Message m order by name desc where m.topic.id = :tId]
+//[select m from forum.messenger.entity.Message m order by name desc where m.topic.id = :tId]
         Topic topic = (Topic) em.createQuery("SELECT t from  Topic t where t.id = :tid").setParameter("tid", topicId).getSingleResult();
         topic.setMessages(limitedMessages);
         return topic;

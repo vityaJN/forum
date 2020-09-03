@@ -2,7 +2,7 @@ package forum.messenger.controllers;
 
 import forum.messenger.DTO.MessageDTO;
 import forum.messenger.Services.TopicService;
-import forum.messenger.container.Topic;
+import forum.messenger.entity.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
