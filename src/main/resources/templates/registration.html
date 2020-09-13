@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 
@@ -33,9 +36,14 @@
 </head>
 <body>
 <p class="message"><a href="/">Back to home</a></p>
-
-
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Register</div>
+                <div class="card-body">
 <form th:action="@{/perform_registration}" th:object="${registration_data}" method="Post">
+
     <table>
         <tr>
             <td>firstName:</td>
@@ -80,6 +88,8 @@
             </td>
         </tr>
     </table>
+
 </form>
+</div>
 </body>
 </html>
