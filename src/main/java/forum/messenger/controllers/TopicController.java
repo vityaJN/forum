@@ -4,11 +4,12 @@ import forum.messenger.DTO.MessageDTO;
 import forum.messenger.Services.TopicService;
 import forum.messenger.entity.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class TopicController {
     private final TopicService topicService;
 
@@ -17,28 +18,21 @@ public class TopicController {
         this.topicService = topicService;
     }
 
-    @GetMapping("/")
-    public String getTopics(Model model) {
-        model.addAttribute("topic", topicService.getTopics(10));
-        return "forum";
+    /**
+     * return with x topics order by xyz
+     */
+    //todo get xyz des asc amount
+    @GetMapping()
+    public List<Topic> getTopics() {
+        List<Topic>topics = topicService.getTopics(10);
+        return topics;
     }
 
     /**
-     * get view of creating topic
-     * @return
+     * creating a topic
      */
-    @GetMapping("/create_topics_form")
-    public String getTopicsForm(@ModelAttribute("topic") Topic topic) {
-        return "create_topics_form";
-    }
-
-
-    /**
-     * creating topic
-     * @return
-     */
-    @PostMapping("/create_topics")
-    public String createTopics(@ModelAttribute("topic") Topic topic) {
+    @PostMapping()
+    public String createTopic(@ModelAttribute("topic") Topic topic) {
         topicService.createTopic(topic);
         return "redirect:/";
     }

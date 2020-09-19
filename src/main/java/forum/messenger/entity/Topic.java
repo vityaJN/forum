@@ -31,7 +31,7 @@ public class Topic {
     private String lastMessageBy;
 
     @Getter @Setter
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic", cascade =  {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH},fetch = FetchType.EAGER)
     private List<Message> messages;
 
     public Topic() {

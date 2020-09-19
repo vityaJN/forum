@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 public class MessagesController {
     private static Logger logger = LoggerFactory.getLogger(MessagesController.class);
     private final MessageService msgService;

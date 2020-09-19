@@ -10,6 +10,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 @EnableWebSecurity
+
 public class WebSecConfig extends WebSecurityConfigurerAdapter {
 //todo configure sec
     @SuppressWarnings("deprecation")
@@ -18,11 +19,22 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
+    //todo enable csrf , implement security
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        http.addFilterBefore(filter, CsrfFilter.class)
-                .formLogin()
+        http.formLogin()
+                .and()
+                .authorizeRequests()
+                .antMatchers( "/")
+                .permitAll() // all requests are allowed on that path
+                .and()
+                .csrf().disable();
+    }
+}
+
+/*
+ .formLogin()
                 .loginPage("/login").defaultSuccessUrl("/", true).permitAll()
                 .and()
                 .logout()
@@ -33,6 +45,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**", "/admin/messages/deletedMessages/").permitAll()
-                .anyRequest().authenticated();
-    }
-}
+                .anyRequest().authenticated()
+                .and().csrf().disable();
+
+ */
