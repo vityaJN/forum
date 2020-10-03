@@ -2,25 +2,31 @@ package forum.messenger.controllers.UserControllers;
 
 import forum.messenger.DTO.RegistrationDTO;
 import forum.messenger.Services.RegistrationService;
+import forum.messenger.Services.UserService;
+import forum.messenger.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    RegistrationService registrationService;
+    private RegistrationService registrationService;
+
+    private UserService userService;
 
     @Autowired
-    public UserController(RegistrationService registrationService) {
+    public UserController(RegistrationService registrationService, UserService userService) {
         this.registrationService = registrationService;
+        this.userService = userService;
     }
 
-    //todo fix validation
     /**
      * user registration
      */
@@ -39,11 +45,11 @@ public class UserController {
         if (bindingResult.hasErrors()) {
 
         }
-
         registrationService.createUser(reg.getUsername(), reg.getPassword(), reg.getFirstName(), reg.getEmail(), reg.getBirthday());
-
     }
 
-
-
+    @GetMapping("")
+    public List<User> userList() {
+        return userService.userList();
+    }
 }

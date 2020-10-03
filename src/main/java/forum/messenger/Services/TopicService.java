@@ -1,5 +1,6 @@
 package forum.messenger.Services;
 
+import forum.messenger.DTO.TopicCreationDTO;
 import forum.messenger.entity.Message;
 import forum.messenger.entity.Topic;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,9 +26,8 @@ public class TopicService {
     }
 
     @Transactional
-    public void createTopic(Topic topic) {
-        topic.setCreationDate(LocalDateTime.now());
-        em.persist(topic);
+    public void createTopic(TopicCreationDTO topicDTO) {
+        em.persist(new Topic(topicDTO.getName(), LocalDateTime.now()));
     }
 
     //todo after deleting the topic delete also the messages
@@ -37,9 +38,7 @@ public class TopicService {
     }
 
     /**
-     * this method recover the message by changing its boolean value in the database
-     *
-     * @param topicId
+     * recovery the message by topicId
      */
     @Transactional
     public void recoveryTopic(long topicId) {
@@ -57,12 +56,9 @@ public class TopicService {
         return em.find(Topic.class, topicId);
     }
 
-    //todo check the <limitt --(int)-- > bug then refactor
     @Transactional
     public List<Topic> getTopics(long limit) {
-        int limitt = (int) limit;
-
-        List<Topic> topics = em.createQuery("select t from Topic t order by creationDate desc ").setMaxResults(limitt)
+        List<Topic> topics = em.createQuery("select t from Topic t order by creationDate desc ").setMaxResults((int)limit)
                 .getResultList();
         return topics;
     }
@@ -91,14 +87,8 @@ public class TopicService {
                 orderby = "date";
         }
 
-        //      String query = "select m from Message m order by " + orderby + " " + direction + " where m.topic.id = :tId";
-
         limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId", topicId).setMaxResults(10).getResultList();
 
-
-        // limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId",topicId).setMaxResults(10).getResultList();
-
-//[select m from forum.messenger.entity.Message m order by name desc where m.topic.id = :tId]
         Topic topic = (Topic) em.createQuery("SELECT t from  Topic t where t.id = :tid").setParameter("tid", topicId).getSingleResult();
         topic.setMessages(limitedMessages);
         return topic;

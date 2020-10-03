@@ -64,7 +64,7 @@ public class MessageService {
         return em.find(Message.class, messageId);
     }
 
-    //todo complete this function
     public void updateMessage(Message message) {
+        em.find(Message.class,message.getId()).setText(message.getText());
     }
 }

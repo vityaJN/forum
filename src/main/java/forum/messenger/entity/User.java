@@ -43,10 +43,12 @@ public class User implements UserDetails {
     public LocalDate birthday;
 
     @Getter @Setter
-    @OneToMany
+    @OneToMany( cascade =  {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH},fetch = FetchType.EAGER)
     private List<Message> messageList;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    //@ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany( cascade =  {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH},fetch = FetchType.EAGER)
+
     private Set<Authority> authorities;
 
     public User() {

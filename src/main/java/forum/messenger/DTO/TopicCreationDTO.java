@@ -5,13 +5,11 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 
+//todo fix validation
 @Valid
 public class TopicCreationDTO {
 
     @Getter @Setter
     private String name;
 
-    public TopicCreationDTO(String name) {
-        this.name = name;
-    }
 }

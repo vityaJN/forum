@@ -8,7 +8,5 @@ import lombok.Setter;
 public class ModifyMessageDTO {
 
     private String text;
-
     private long messageId;
-
 }

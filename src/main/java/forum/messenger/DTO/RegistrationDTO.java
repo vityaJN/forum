@@ -36,6 +36,4 @@ public class RegistrationDTO {
     @DateTimeFormat(pattern = CommonConstants.DATE_FORMAT)
     private LocalDate birthday;
 
-    public RegistrationDTO() {
-    }
 }

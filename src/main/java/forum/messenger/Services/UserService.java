@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsManager {
@@ -70,5 +71,9 @@ public class UserService implements UserDetailsManager {
     @Override
     public void changePassword(String s, String s1) {
 
+    }
+
+    public List<User> userList(){
+        return em.createQuery("select u from User u").getResultList();
     }
 }

@@ -34,6 +34,11 @@ public class Topic {
     @OneToMany(mappedBy = "topic", cascade =  {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH},fetch = FetchType.EAGER)
     private List<Message> messages;
 
+    public Topic(String name, LocalDateTime creationDate) {
+        this.name = name;
+        this.creationDate = creationDate;
+    }
+
     public Topic() {
         messages = new ArrayList<>();
     }
