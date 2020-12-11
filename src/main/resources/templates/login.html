@@ -1,36 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <title>Login</title>
+    <meta charset="utf-8">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/styles/css/login.css}" rel="stylesheet"/>
 </head>
 <body>
 
-<h1>Login</h1>
-<a data-th-href="@{/}">HOME</a>
-
-<form name='f' th:action="@{/login}" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-            <label th:if="${param.error}" class="text-center redText">Bad username or password</label>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password'/></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit"/></td>
-        </tr>
-
-    </table>
-    <p class="message">You aren't registered? <a href="/registration">Create an account</a></p>
-
-</form>
+<div class="h-100 row align-items-center">
+    <div class="col">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-offset-0 col-md-0 text-center">
+                    <h1 class='text-white'>IT Forum</h1>
+                    <div class="form-login"></br>
+                        <h4>Login</h4>
+                        <form name='f' th:action="@{/login}" method='POST'>
+                        </br>
+                            <input type="text" name="username" id="userName" class="form-control input-sm chat-input" placeholder="username"/>
+                            </br></br>
+                            <input type="text" name="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password"/>
+                            </br>
+                            <input type="submit" name="submit" class="btn btn-danger btn-md"/>
+                        </form>
+                    </div>
+                    <a href="/registration" class="btn btn-info" role="button">Registration</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
-
