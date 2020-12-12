@@ -1,54 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="UTF-8">
     <title>Home</title>
-    <meta charset="UTF-8"/>
-    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
-    <script src="/webjars/popper.js/1.14.3/popper.min.js"></script>
-    <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link th:href="@{/styles/css/forum.css}" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-        <a class="navbar-brand text-white" href="/">forum</a>
-        <div class="collapse navbar-collapse" id="Menu">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/create_topics_form">Create topics</a>
-                </li>
-            </ul>
-        </div>
-        <a class="navbar-brand text-white" href="/filter_messages_and_users">filter messages by user</a>
-        <form data-th-action="@{/logout}" method="POST">
-            <input type="submit" value="Logout"/>
-        </form>
-    </nav>
-</header>
-
 <body>
+<header th:insert="header.html :: header"></header>
 
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Topic Name</th>
-        <th scope="col">Creation Date</th>
-        <th scope="col">Last Message by</th>
-        <th scope="col">Open topic</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
 
-    <tr data-th-each="topic: ${topic}">
-        <th scope="row" data-th-text="${topic.name}"></th>
-        <th scope="row" th:text="${topic.creationDate}"></th>
-        <th scope="row" th:text="${topic.lastMessageBy}"></th>
-        <th><a th:href="@{/topics/{topicsId}(topicsId=${topic.id})}" th:text="opentopic"></a></th>
-    </tr>
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="p-xs">
+                        <div class="pull-left m-r-md">
+                            <i class="fa fa-globe text-navy mid-icon"></i>
+                        </div>
+                        <h2>Welcome to the IT forum</h2>
+                        <span>Feel free to choose topic you're interested in.</span>
+                    </div>
+                </div>
+
+                <div class="ibox-content forum-container">
+
+                    <div class="forum-title">
+                        <div class="pull-right forum-desc">
+                            <!-- todo get from service in a different model -->
+                            <small data-th-text="${sentMessages}"></small>
+                        </div>
+                        <h3>Programming subjects</h3>
+                    </div>
+
+                    <table class="table">
+                        <tbody>
+
+                        <tr data-th-each="topic: ${topic}">
+                            <div class="forum-item active">
+                                <div class="row">
+                                    <div class="col-md-9">
+
+                                        <!-- todo make it possible to select custom icons -->
+                                        <div class="forum-icon">
+                                            <i class="fa fa-shield"></i>
+                                        </div>
+
+                                        <!-- Open topic by id -->
+                                        <a th:href="@{/topics/{topicsId}(topicsId=${topic.id})}"
+                                           class="forum-item-title"
+                                           data-th-text="${topic.name}"></a>
+                                        <div class="forum-sub-title" data-th-text="${topic.topicDescription}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 forum-info">
+                                    <span class="views-number">
+                                     <div>
+                                            <small>Last Message by</small>
+                                     </div>
+                                     </span>
+                                        <a data-th-text="${topic.lastMessageBy} == null ? no_messages : ${topic.lastMessageBy}"></a>
+                                    </div>
+
+                                    <div class="col-md-1 forum-info">
+                                        <span class="views-number">
+                               <!-- todo get from the database topic messages count -->
+                                320
+                            </span>
+                                        <div>
+                                            <small>Messages</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
