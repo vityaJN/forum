@@ -3,6 +3,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -11,7 +12,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 @EnableWebSecurity
 public class WebSecConfig extends WebSecurityConfigurerAdapter {
-//todo configure sec
+
     @SuppressWarnings("deprecation")
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -29,7 +30,7 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/messages", "/registration", "/perform_registration", "/css/**", "/js/**", "/", "/admin/messages/deletedMessages/").permitAll()
+                .antMatchers( "/perform_registration","/registration","/login","/styles/css/**","   /**").permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**", "/admin/messages/deletedMessages/").permitAll()
