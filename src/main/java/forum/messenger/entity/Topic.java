@@ -17,18 +17,24 @@ public class Topic {
     private Long id;
 
     @Getter @Setter
-    @Column(name = "name")
-    private String name;
+    @Column(name = "topic_name")
+    protected String name;
 
     @Getter @Setter
-    private LocalDateTime creationDate;
+    @Column(name = "topic_description")
+    private String topicDescription;
 
     @Getter @Setter
-    private boolean isTheTopicDeleted;
+    @Column(name = "creation_date")
+    protected LocalDateTime creationDate;
 
     @Getter @Setter
-    @Column(name = "lastMessageBy")
-    private String lastMessageBy;
+    @Column(name = "is_the_topic_deleted")
+    protected boolean isTheTopicDeleted;
+
+    @Getter @Setter
+    @Column(name = "last_message_by")
+    protected String lastMessageBy;
 
     @Getter @Setter
     @OneToMany(mappedBy = "topic")
