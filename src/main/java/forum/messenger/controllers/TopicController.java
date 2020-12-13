@@ -29,7 +29,7 @@ public class TopicController {
      */
     @GetMapping("/create_topics_form")
     public String getTopicsForm(@ModelAttribute("topic") Topic topic) {
-        return "create_topics_form";
+        return "create_topic_form";
     }
 
 
