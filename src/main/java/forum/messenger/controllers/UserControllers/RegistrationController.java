@@ -15,8 +15,12 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
 
+    private final RegistrationService registrationService;
+
     @Autowired
-    RegistrationService registrationService;
+    public RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
 
     /**
      *get user registration view

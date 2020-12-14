@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AdminController {
 
-    MessageService msgService;
-    AdminService adminService;
+    private final MessageService msgService;
+    private final AdminService adminService;
 
     @Autowired
     public AdminController(MessageService msgService, AdminService adminService) {
@@ -34,7 +34,7 @@ public class AdminController {
     @PostMapping("/admin/messages/deleteMessage/{messageId}")
     public String deleteMessage(@PathVariable("messageId") long messageId) {
         msgService.deleteMessage(messageId);
-        return "redirect:/topics/" + msgService.fromWhichTopicTheMessage(messageId);
+        return "redirect:/topics/" + msgService.findTheTopicIdOfMessage(messageId);
     }
 
     @GetMapping("/admin/messages/deletedMessages/")
@@ -46,6 +46,6 @@ public class AdminController {
     @PostMapping("/admin/messages/recoveryMessage/{messageId}")
     public String recoveryMessage(@PathVariable("messageId") long messageId) {
         msgService.recoveryMessage(messageId);
-        return "redirect:/topics/" + msgService.fromWhichTopicTheMessage(messageId);
+        return "redirect:/topics/" + msgService.findTheTopicIdOfMessage(messageId);
     }
 }
