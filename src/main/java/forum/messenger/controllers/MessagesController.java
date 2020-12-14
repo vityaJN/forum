@@ -1,8 +1,8 @@
 package forum.messenger.controllers;
 
 import forum.messenger.DTO.MessageDTO;
-import forum.messenger.DTO.ModifyMessageDTO;
 import forum.messenger.Services.MessageService;
+import forum.messenger.entity.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ public class MessagesController {
         this.msgService = msgService;
     }
 
-    //TODO FIX VALIDATION
     @PostMapping("topics/messages/sendMessage")
     public String messagesForm(@ModelAttribute("message") @Valid MessageDTO m,
                                BindingResult bindingResult) {
@@ -44,16 +43,12 @@ public class MessagesController {
     @RequestMapping("/messages/get_message_to_modify/{mID}")
     public String modifyMessage(@PathVariable("mID") long messageId, Model model) {
         model.addAttribute("message", msgService.getASingleMessage(messageId));
-        model.addAttribute("modify_message_dto", new ModifyMessageDTO());
         return "modify_message";
     }
 
-    //todo fix modify message function
     @PostMapping("/messages/get_message_to_modify/{mID}")
-    public String modifyMessage(@PathVariable("mID") long messageId, ModifyMessageDTO m) {
-
-        //msgService.updateMessage(m);
-        String url = "/messages/get_message_to_modify/" + messageId;
-        return "/";
+    public String modifyMessage(@PathVariable("mID") long messageId, Message m) {
+        msgService.updateMessage(m);
+        return "redirect:/topics/"+ msgService.findTheTopicIdOfMessage(m.getId());
     }
 }

@@ -2,10 +2,10 @@ package forum.messenger.Services;
 import forum.messenger.DTO.MessageDTO;
 import forum.messenger.entity.Message;
 import forum.messenger.entity.User;
+import forum.messenger.helpers.SecHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
@@ -39,21 +39,23 @@ public class MessageService {
         message.setIsDeleted(false);
     }
 
+    /**
+     * Returns with the actual message's topic id
+     */
     @Transactional
-    public long fromWhichTopicTheMessage(long messageId){
+    public long findTheTopicIdOfMessage(long messageId){
        return em.find(Message.class,messageId).getTopic().getId();
     }
 
     @Transactional
     public void createMessage(MessageDTO messagedto) {
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedInUser = SecHelper.getLoggedInUser();
         Message message = new Message(loggedInUser, loggedInUser.getName(), LocalDateTime.now(), messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
         em.persist(message);
         topicService.updateLastMessageBy(loggedInUser.getName(), messagedto.getTopicId());
     }
 
     @Transactional
-
     public List<Message> getDeletedMessages() {
         List<Message> messagesList = em.createQuery("select m from Message m where m.isDeleted = true ").getResultList();
         return messagesList;
@@ -64,7 +66,9 @@ public class MessageService {
         return em.find(Message.class, messageId);
     }
 
-    //todo complete this function
+    @Transactional
     public void updateMessage(Message message) {
+       Message updateMessage = em.find(Message.class,message.getId());
+       updateMessage.setText(message.getText());
     }
 }
