@@ -98,7 +98,6 @@ public class TopicService {
             default:
                 orderby = "date";
         }
-
         limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId", topicId).setMaxResults(10).getResultList();
         Topic topic = (Topic) em.createQuery("SELECT t from  Topic t where t.id = :tid").setParameter("tid", topicId).getSingleResult();
         topic.setMessages(limitedMessages);
