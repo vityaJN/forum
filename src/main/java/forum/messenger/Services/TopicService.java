@@ -1,7 +1,9 @@
 package forum.messenger.Services;
 
-import forum.messenger.entity.Message;
 import forum.messenger.entity.Topic;
+import forum.messenger.entity.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Service
 public class TopicService {
+    private static final Logger logger = LoggerFactory.getLogger(TopicService.class);
 
     @PersistenceContext
     private EntityManager em;
@@ -25,11 +28,22 @@ public class TopicService {
 
     @Transactional
     public void createTopic(Topic topic) {
-        topic.setCreationDate(LocalDateTime.now());
-        em.persist(topic);
+       if (!doesThisTopicExist(topic.getName())){
+           topic.setCreationDate(LocalDateTime.now());
+           em.persist(topic);
+       }
+    }
+    private boolean doesThisTopicExist(String topicName){
+        try {
+          return em.createQuery("SELECT t FROM Topic t where t.name =:topicName").setParameter("topicName", topicName).getSingleResult() != null;
+        }catch (javax.persistence.NoResultException noEntity){
+            return false;
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+            return false;
+        }
     }
 
-    //todo after deleting the topic delete also the messages
     @Transactional
     public void deleteTopic(long topicId) {
         Topic topic = em.find(Topic.class, topicId);
@@ -37,8 +51,7 @@ public class TopicService {
     }
 
     /**
-     * this method recover the message by changing its boolean value in the database
-     *
+     * recovers the message by changing its boolean value in the database
      * @param topicId
      */
     @Transactional
@@ -49,7 +62,6 @@ public class TopicService {
 
     /**
      * get single topic by topicID @param
-     *
      * @return
      */
     @Transactional
@@ -57,17 +69,13 @@ public class TopicService {
         return em.find(Topic.class, topicId);
     }
 
-    //todo check the <limitt --(int)-- > bug then refactor
     @Transactional
     public List<Topic> getTopics(long limit) {
-        int limitt = (int) limit;
-
-        List<Topic> topics = em.createQuery("select t from Topic t order by creationDate desc ").setMaxResults(limitt)
+        List<Topic> topics = em.createQuery("select t from Topic t order by creationDate desc ").setMaxResults((int)limit)
                 .getResultList();
         return topics;
     }
 
-    //todo implement QUERYDSL
     @Transactional
     public Topic getSingleTopic(long topicId, String orderby, int limit, String direction) {
 
@@ -91,14 +99,7 @@ public class TopicService {
                 orderby = "date";
         }
 
-        //      String query = "select m from Message m order by " + orderby + " " + direction + " where m.topic.id = :tId";
-
         limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId", topicId).setMaxResults(10).getResultList();
-
-
-        // limitedMessages = em.createQuery("select m from Message m where m.topic.id = :tId").setParameter("tId",topicId).setMaxResults(10).getResultList();
-
-//[select m from forum.messenger.entity.Message m order by name desc where m.topic.id = :tId]
         Topic topic = (Topic) em.createQuery("SELECT t from  Topic t where t.id = :tid").setParameter("tid", topicId).getSingleResult();
         topic.setMessages(limitedMessages);
         return topic;
