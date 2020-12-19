@@ -34,6 +34,7 @@ public class MessageService {
         Topic topic = message.getTopic();
         topic.setDontDeletedMessagesCount(topic.getDontDeletedMessagesCount()-1);
         message.setIsDeleted(true);
+        topicService.updateLastMessageBy(message.getTopic().getId());
     }
 
     @Transactional
@@ -41,6 +42,7 @@ public class MessageService {
         Message message = em.find(Message.class, messageId);
         message.getTopic().setDontDeletedMessagesCount(message.getTopic().getDontDeletedMessagesCount()+1);
         message.setIsDeleted(false);
+        topicService.updateLastMessageBy(message.getTopic().getId());
     }
 
     /**
@@ -54,10 +56,10 @@ public class MessageService {
     @Transactional
     public void createMessage(MessageDTO messagedto) {
         User loggedInUser = SecHelper.getLoggedInUser();
-        Message message = new Message(loggedInUser, loggedInUser.getName(), LocalDateTime.now(), messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
+        Message message = new Message(loggedInUser,LocalDateTime.now(), messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
         message.getTopic().setDontDeletedMessagesCount(message.getTopic().getDontDeletedMessagesCount()+1);
-        topicService.updateLastMessageBy(loggedInUser.getName(), messagedto.getTopicId());
         em.persist(message);
+        topicService.updateLastMessageBy(messagedto.getTopicId());
     }
 
     @Transactional
