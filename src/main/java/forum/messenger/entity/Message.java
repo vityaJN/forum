@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "MESSAGE")
+@Table(name = "message")
 public class Message {
 
     @Id
@@ -42,11 +42,12 @@ public class Message {
     public Message() {
     }
 
-    public Message(User user, String name, LocalDateTime date, String text, Topic topic) {
+    public Message(User user, LocalDateTime date, String text, Topic topic) {
         this.user = user;
-        this.name = name;
+        this.name = user.getName();
         this.date = date;
         this.text = text;
         this.topic = topic;
+        this.isDeleted = false;
     }
 }

@@ -20,9 +20,18 @@ public class TopicService {
     private EntityManager em;
 
     @Transactional
-    public void updateLastMessageBy(String name, long topicId) {
+    public void updateLastMessageBy(long topicId) {
         Topic topic = em.find(Topic.class, topicId);
-        topic.setLastMessageBy(name);
+        Message message = null;
+        try {
+            message = (Message) em.createQuery("SELECT m FROM Message m where m.topic.id = : topicId and m.isDeleted = false group by m.date order by m.date desc").setParameter("topicId", topicId).setMaxResults(1).getSingleResult();
+        } catch (javax.persistence.NoResultException noEntity) {
+            topic.setLastMessageBy(null);
+            return;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        topic.setLastMessageBy(message.getUser().getName());
         em.persist(topic);
     }
 

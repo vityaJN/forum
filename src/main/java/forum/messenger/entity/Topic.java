@@ -18,7 +18,7 @@ public class Topic {
 
     @Getter @Setter
     @Column(name = "topic_name")
-    protected String name;
+    private String name;
 
     @Getter @Setter
     @Column(name = "topic_description")
@@ -26,15 +26,15 @@ public class Topic {
 
     @Getter @Setter
     @Column(name = "creation_date")
-    protected LocalDateTime creationDate;
+    private LocalDateTime creationDate;
 
     @Getter @Setter
     @Column(name = "is_the_topic_deleted")
-    protected boolean isTheTopicDeleted;
+    private boolean isTheTopicDeleted;
 
     @Getter @Setter
     @Column(name = "last_message_by")
-    protected String lastMessageBy;
+    private String lastMessageBy;
 
     @Getter @Setter
     @OneToMany(mappedBy = "topic")
