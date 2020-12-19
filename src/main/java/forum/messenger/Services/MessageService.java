@@ -1,6 +1,7 @@
 package forum.messenger.Services;
 import forum.messenger.DTO.MessageDTO;
 import forum.messenger.entity.Message;
+import forum.messenger.entity.Topic;
 import forum.messenger.entity.User;
 import forum.messenger.helpers.SecHelper;
 import org.slf4j.Logger;
@@ -30,12 +31,15 @@ public class MessageService {
     @Transactional
     public void deleteMessage(long messageId) {
         Message message = em.find(Message.class, messageId);
+        Topic topic = message.getTopic();
+        topic.setDontDeletedMessagesCount(topic.getDontDeletedMessagesCount()-1);
         message.setIsDeleted(true);
     }
 
     @Transactional
     public void recoveryMessage(long messageId) {
         Message message = em.find(Message.class, messageId);
+        message.getTopic().setDontDeletedMessagesCount(message.getTopic().getDontDeletedMessagesCount()+1);
         message.setIsDeleted(false);
     }
 
@@ -51,8 +55,9 @@ public class MessageService {
     public void createMessage(MessageDTO messagedto) {
         User loggedInUser = SecHelper.getLoggedInUser();
         Message message = new Message(loggedInUser, loggedInUser.getName(), LocalDateTime.now(), messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
-        em.persist(message);
+        message.getTopic().setDontDeletedMessagesCount(message.getTopic().getDontDeletedMessagesCount()+1);
         topicService.updateLastMessageBy(loggedInUser.getName(), messagedto.getTopicId());
+        em.persist(message);
     }
 
     @Transactional

@@ -40,7 +40,10 @@ public class Topic {
     @OneToMany(mappedBy = "topic")
     private List<Message> messages;
 
+    @Getter @Setter
+    private int dontDeletedMessagesCount;
+
     public Topic() {
-        messages = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
 }
