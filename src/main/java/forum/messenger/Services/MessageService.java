@@ -56,7 +56,7 @@ public class MessageService {
     @Transactional
     public void createMessage(MessageDTO messagedto) {
         User loggedInUser = SecHelper.getLoggedInUser();
-        Message message = new Message(loggedInUser,LocalDateTime.now(), messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
+        Message message = new Message(loggedInUser,LocalDateTime.now(),messagedto.getText(), topicService.getTopic(messagedto.getTopicId()));
         message.getTopic().setDontDeletedMessagesCount(message.getTopic().getDontDeletedMessagesCount()+1);
         em.persist(message);
         topicService.updateLastMessageBy(messagedto.getTopicId());
